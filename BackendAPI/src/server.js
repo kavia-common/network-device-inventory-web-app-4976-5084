@@ -1,18 +1,18 @@
 require('dotenv').config();
 const app = require('./app');
 
-const PORT = process.env.PORT || 3001;
+const PORT = Number(process.env.PORT) || 3001;
 const HOST = process.env.HOST || '0.0.0.0';
 
 const server = app.listen(PORT, HOST, () => {
-  console.log(`Server running at http://${HOST}:${PORT}`);
+  const env = process.env.NODE_ENV || 'development';
+  console.log(`[Server] Listening on http://${HOST}:${PORT} (env=${env})`);
 });
 
-// Graceful shutdown
 process.on('SIGTERM', () => {
-  console.log('SIGTERM signal received: closing HTTP server');
+  console.log('[Server] SIGTERM signal received: closing HTTP server');
   server.close(() => {
-    console.log('HTTP server closed');
+    console.log('[Server] HTTP server closed');
     process.exit(0);
   });
 });

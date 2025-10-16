@@ -47,9 +47,8 @@ app.use('/docs', swaggerUi.serve, (req, res, next) => {
 // Parse JSON request body
 app.use(express.json());
 
-// Mount routes under / and /api for clarity
+ // Mount routes under / only; routes/index mounts /api internally
 app.use('/', routes);
-app.use('/api', routes);
 
 // Centralized error handling middleware
 // Returns error response consistent with API Error schema
